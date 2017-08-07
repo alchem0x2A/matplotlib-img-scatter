@@ -25,7 +25,7 @@ def new_init(self, fig, rect, facecolor=None, frameon=True, sharex=None,
 
 
 def _scatter_img(self, x, y, s=100,
-                 marker="o", index=None):
+                 marker="o", index=None, label=None):
     if index is None:
         index = self.scatter_img_counter % 10 +1
         self.scatter_img_counter = index
@@ -53,6 +53,10 @@ def _scatter_img(self, x, y, s=100,
     self.update_datalim(numpy.column_stack([x, y]))
     self.autoscale()
 
+    # Mimicing the behavior of legend
+    if label is not None:
+        self.plot(x, y, label=label)
+        
     return artists
 Axes.__init__ = new_init
 Axes.scatter_img = _scatter_img
